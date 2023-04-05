@@ -16,7 +16,5 @@ phases:
       - echo Build completed on `date`
       - echo $AWS_REGION
 artifacts:
-  commands:
-    - cd target
   files:
-    - java-basic-1.0-SNAPSHOT.jar
+    - target/*.jar
