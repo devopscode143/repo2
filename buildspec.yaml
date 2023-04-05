@@ -19,4 +19,4 @@ artifacts:
   commands:
     - cd target
   files:
-    - *.jar
+    - java-basic-1.0-SNAPSHOT.jar
