@@ -8,7 +8,6 @@ phases:
   build:
     commands:
       - git archive --format=zip HEAD > pr-codebase.zip
-      - aws s3 cp pr-codebase.zip s3://${var.artifact_bucket}/${var.project_name}/pr-compression-${CODEBUILD_BUILD_NUMBER}.zip
 artifacts:
   type: S3
   files:
