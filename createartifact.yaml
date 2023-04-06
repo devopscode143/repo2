@@ -3,8 +3,8 @@ version: 0.2
 phases:
   install:
     commands:
-      - apt-get update
-      - apt-get install -y zip
+      - sudo yum update -y
+      - yum install -y zip
   pre_build:
     commands:
       - git clone https://github.com/{YOUR_GITHUB_USERNAME}/{YOUR_GITHUB_REPOSITORY}.git --branch pull/${CODEBUILD_SOURCE_VERSION##*/} --single-branch code
