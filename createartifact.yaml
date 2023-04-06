@@ -14,4 +14,4 @@ phases:
       - echo dmompleted.......................
 artifacts:
   files:
-    - code.zip
+    - target/*
