@@ -10,7 +10,6 @@ phases:
       - echo Build started on `date`
   build:
     commands:
-      - cd code
       - zip -r ../code.zip *
 artifacts:
   files:
