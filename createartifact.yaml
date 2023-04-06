@@ -2,8 +2,16 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      ruby: 2.6
+    commands:
+      - yum install -y zip
   build:
     commands:
-       - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
+      - cd $CODEBUILD_SRC_DIR
+      - zip -r ../code.zip *
+      - cd ..
+  post_build:
+    commands:
+      - echo dmompleted.......................
+artifacts:
+  files:
+    - code.zip
