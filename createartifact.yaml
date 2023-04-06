@@ -2,15 +2,8 @@ version: 0.2
 
 phases:
   install:
-    commands:
-      - sudo yum update -y
-      - yum install -y zip
-  pre_build:
-    commands:
-      - echo Build started on `date`
+    runtime-versions:
+      ruby: 2.6
   build:
     commands:
-      - zip -r ../code.zip *
-artifacts:
-  files:
-    - code.zip
+       - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
