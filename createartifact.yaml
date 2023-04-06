@@ -2,8 +2,6 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      aws-cli: 2.0
     commands:
       - apt-get update
       - apt-get install -y zip
