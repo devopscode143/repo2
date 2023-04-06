@@ -6,12 +6,10 @@ phases:
       - yum install -y zip
   build:
     commands:
-      - cd $CODEBUILD_SRC_DIR
-      - zip -r ../code.zip *
-      - cd ..
+      - zip -r code.zip .
   post_build:
     commands:
       - echo dmompleted.......................
 artifacts:
   files:
-    - target/*
+    - code.zip
