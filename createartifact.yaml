@@ -1,14 +1,19 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
-      python: 3.9
+      aws-cli: 2.0
     commands:
-      - pip3 install awscli
+      - apt-get update
+      - apt-get install -y zip
+  pre_build:
+    commands:
+      - git clone https://github.com/{YOUR_GITHUB_USERNAME}/{YOUR_GITHUB_REPOSITORY}.git --branch pull/${CODEBUILD_SOURCE_VERSION##*/} --single-branch code
   build:
     commands:
-      - git archive --format=zip HEAD > pr-codebase.zip
+      - cd code
+      - zip -r ../code.zip *
 artifacts:
-  type: S3
   files:
-    - pr-codebase.zip
+    - code.zip
