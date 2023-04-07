@@ -12,7 +12,7 @@ phases:
       - echo Env Name.......................
       - export $(cat /tmp/envfile)
       - echo Env Name diff.......................
-      - bash -c 'PR_NAME=$(echo $CODEBUILD_WEBHOOK_HEAD_REF | sed -n "s|refs/pull/\([0-9]*\)/.*|\1|p"); echo "PR_NAME=$PR_NAME" >> /tmp/envfile'
+      - bash -c "PR_NAME=$(echo $CODEBUILD_WEBHOOK_HEAD_REF | sed -n "s|refs/pull/\([0-9]*\)/.*|\1|p"); echo "PR_NAME=$PR_NAME" >> /tmp/envfile"
 artifacts:
   files:
     - code.zip
