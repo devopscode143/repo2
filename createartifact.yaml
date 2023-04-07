@@ -17,6 +17,7 @@ phases:
     commands:
       - echo Env Name.......................
       - export $(cat /tmp/envfile)
+      - echo "Env Name diff.......................$CODEBUILD_BUILD_NUMBER"
       - echo Env Name diff.......................$PR_NUMBER
       - echo "Env Name diff.......................$PR_NAME"
       - echo $CODEBUILD_WEBHOOK_HEAD_REF
