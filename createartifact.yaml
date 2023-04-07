@@ -1,5 +1,11 @@
 version: 0.2
 
+env:
+  variables:
+    PR_NUMBER: $CODEBUILD_SOURCE_VERSION | awk -F / '{print $(NF-1)}'
+    PR_NAME: $CODEBUILD_SOURCE_VERSION | awk -F / '{print $NF}'
+    BUILD_NUMBER: $CODEBUILD_BUILD_NUMBER
+
 phases:
   install:
     commands:
@@ -11,10 +17,10 @@ phases:
     commands:
       - echo Env Name.......................
       - export $(cat /tmp/envfile)
-      - echo Env Name diff.......................$CODEBUILD_BUILD_ID
-      - echo "Env Name diff.......................$CODEBUILD_BUILD_ID"
+      - echo Env Name diff.......................$PR_NUMBER
+      - echo "Env Name diff.......................$PR_NAME"
       - echo $CODEBUILD_WEBHOOK_HEAD_REF
-      - if [ $CODEBUILD_BUILD_SUCCEEDING -eq 1 ]; then aws sqs send-message --queue-url https://sqs.us-east-1.amazonaws.com/845263268945/terraform-example-queue.fifo --message-body '{"status":"successful!!!!!!","CODEBUILD_BUILD_ID":"'"$CODEBUILD_BUILD_ID"'"}' --message-group-id "1" --message-deduplication-id "1"; fi
+      - if [ $CODEBUILD_BUILD_SUCCEEDING -eq 1 ]; then aws sqs send-message --queue-url $QUEUE_URL --message-body '{"status":"successful!!!!!!","CODEBUILD_BUILD_ID":"'"$CODEBUILD_BUILD_ID"'"}' --message-group-id "1" --message-deduplication-id "1"; fi
 artifacts:
   files:
     - code.zip
