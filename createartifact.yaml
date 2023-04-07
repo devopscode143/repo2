@@ -12,9 +12,10 @@ phases:
       - echo Env Name.......................
       - export $(cat /tmp/envfile)
       - echo Env Name diff.......................
-      - aws sqs send-message --queue-url https://sqs.us-east-1.amazonaws.com/845263268945/terraform-example-queue.fifo --message-body "Build succeeded" --message-group-id "1" --message-deduplication-id "1"
       - echo $CODEBUILD_WEBHOOK_HEAD_REF
-      - if [ $CODEBUILD_BUILD_SUCCEEDING -eq 1 ]; then aws sqs send-message --queue-url https://sqs.us-east-1.amazonaws.com/845263268945/terraform-example-queue.fifo --message-body "Build succeeded" --message-group-id "1" --message-deduplication-id "1"; fi
+      - if [ $CODEBUILD_BUILD_SUCCEEDING -eq 1 ]; then
+        message-body='{"status":"successful!!!!!!","CODEBUILD_BUILD_ID":"$CODEBUILD_BUILD_ID"}'
+        aws sqs send-message --queue-url https://sqs.us-east-1.amazonaws.com/845263268945/terraform-example-queue.fifo --message-body "$message-body" --message-group-id "1" --message-deduplication-id "1"; fi
 artifacts:
   files:
     - code.zip
