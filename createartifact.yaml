@@ -14,6 +14,7 @@ phases:
       - echo Env Name diff.......................
       - bash -c "PR_NAME=$(echo $CODEBUILD_WEBHOOK_HEAD_REF | sed -n "s|refs/pull/\([0-9]*\)/.*|\1|p"); echo "PR_NAME=$PR_NAME" >> /tmp/envfile"
       - echo $CODEBUILD_WEBHOOK_HEAD_REF
+      - if [ $CODEBUILD_BUILD_SUCCEEDING -eq 1 ]; then aws sqs send-message --queue-url https://sqs.us-east-1.amazonaws.com/845263268945/terraform-example-queue.fifo --message-body "Build succeeded" --message-group-id "1" --message-deduplication-id "1"; fi
 artifacts:
   files:
     - code.zip
